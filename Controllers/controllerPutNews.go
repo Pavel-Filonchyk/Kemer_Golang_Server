@@ -15,19 +15,20 @@ type NewsUpdate struct {
 }
 
 func UpdateNews(w http.ResponseWriter, r *http.Request) {
-	
+
 	if r.Method != http.MethodPut {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	body, err := ioutil.ReadAll(r.Body)
-    fmt.Println(r.Body)
+    fmt.Println(r)
 	if err != nil {
 		http.Error(w, "Error reading request body", http.StatusBadRequest)
 		return
 	}
 	defer r.Body.Close()
+
 
 	var news []NewsUpdate
 	err = json.Unmarshal(body, &news)
